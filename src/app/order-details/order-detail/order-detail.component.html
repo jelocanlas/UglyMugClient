@@ -1,0 +1,40 @@
+<form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)" >
+    <input type="hidden" name="OrderNumber" [value]="service.formData.orderNumber">
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text bg-white">
+            <i class="fas fa-user-circle" [class.green-icon]="OrderName.valid" [class.red-icon]="OrderName.invalid && OrderName.touched"></i>
+          </div>
+        </div>
+        <input name="OrderName" #OrderName="ngModel" [(ngModel)]="service.formData.orderName" class="form-control"
+          placeholder="Order Name" required>
+      </div>
+    </div>
+    <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text bg-white">
+              <i class="fas fa-coffee" [class.green-icon]="OrderDetails.valid" [class.red-icon]="OrderDetails.invalid && OrderDetails.touched"></i>
+            </div>
+          </div>
+          <input name="OrderDetails" #OrderDetails="ngModel" [(ngModel)]="service.formData.order.orderDetails" class="form-control"
+            placeholder="Order Details" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text bg-white">
+              <i class="fas fa-hashtag" [class.green-icon]="OrderQuantity.valid" [class.red-icon]="OrderQuantity.invalid && OrderQuantity.touched"></i>
+            </div>
+          </div>
+          <input type="number" name="OrderQuantity" #OrderQuantity="ngModel" [(ngModel)]="service.formData.order.orderQuantity" class="form-control"
+            placeholder="Order Quantity" required>
+        </div>
+      </div>
+    <div class="form-group">
+      <button class="btn btn-success btn-lg btn-block" type="submit" [disabled]="form.invalid"><i class="fas fa-database"></i> Place Order</button>
+      <button [hidden]="service.formData.orderNumber == 0" class="btn btn-danger btn-lg btn-block" type="button" (click)="refresh()" [disabled]="form.invalid"><i class="fas fa-database"></i> Cancel</button>
+    </div>
+  </form>

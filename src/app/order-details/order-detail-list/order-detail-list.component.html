@@ -1,0 +1,31 @@
+<style>
+td {
+  text-align: center;
+  vertical-align: middle;
+}
+</style>
+
+<table class="table table-hover">
+    <tr>
+        <td>Order Name</td>
+        <td>Time</td>
+        <td>Status</td>
+        <td>Item</td>
+        <td>Qty</td>
+        <td>Action</td>
+    </tr>
+    <tr *ngFor="let od of signalRService.data">
+        <td>{{od.orderName}}</td>
+        <td>{{od.orderTime | date:'medium'}}</td>
+        <td>{{od.orderStatus}}</td>
+        <td>{{od.order.orderDetails}}</td>
+        <td>{{od.order.orderQuantity}}</td>
+        <td>
+          <i [hidden]="od.orderStatus != 'Pending'" title="Cancel Order" class="fas fa-ban fa-lg text-danger" (click)="onCancel(od.orderNumber)"></i>
+          &nbsp;
+          <i [hidden]="od.orderStatus != 'Pending'" title="Update Order" class="fas fa-exchange-alt fa-lg text-default" (click)="populateForm(od)"></i>
+          &nbsp;
+          <i [hidden]="od.orderStatus != 'Pending'" title="Complete Order" class="fas fa-check fa-lg text-success" (click)="onConfirm(od.orderNumber)"></i>
+        </td>
+    </tr>
+</table>
